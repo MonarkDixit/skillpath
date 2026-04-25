@@ -72,11 +72,7 @@ SKILL_EDGES = [
 
     #---Cross Domain Connections---
     ("research", "nonprofit organization management"),
-    ("consulting", "strategy/planning"),
-    ("engineering", "information technology"),
     ("design", "marketing"),
-    ("sales", "business development"),
     ("operations", "management"),
     ("finance", "strategy/planning"),
-    ("human resources", "management"),
 ]
