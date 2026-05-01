@@ -1,79 +1,65 @@
-#data/skill_edges.py
-#SkillPath: Career Skill Dependency Mapper
-#Author: Monark Dixit (UID: 122259645)
-#Course: MSML606, Spring 2026
-
-#Purpose:
-#1. Defines the directed prerequisite edges between skills.
-#2. Each tuple (A, B) indicates that skill A is a prerequisite for skill B.
-#3. These edges are based on real-world learning dependencies observed across job postings
-#4. This is my own original contribution of the SkillPath project, based on my analysis of the dataset and domain knowledge.
-
-#Skills are grouped into 6 families:
-#1. Core Foundations
-#2. Data and Analytics
-#3. Engineering and Technology
-#4. Business and Management
-#5. Marketing and Sales
-#6. Health and Operations
-
-#--------------------------------------------------------------------
+# =============================================================================
+# data/skill_edges.py
+# SkillPath: Career Skill Dependency Mapper
+# Author: Monark Dixit (UID: 122259645)
+# Course: MSML606, Spring 2026
+#
+# PURPOSE:
+#   Defines the directed prerequisite edges between skills.
+#   Each tuple (A, B) means "you should learn A before B".
+#
+#   All skill names here match exactly the skill names used in
+#   role_skills.py so the graph and the role mappings are consistent.
+#
+#   This is an original contribution of the SkillPath project.
+# =============================================================================
 
 SKILL_EDGES = [
-    #----Core Foundations: These are entry level skills that feed into almost every other domain---
-    ("finance", "accounting"),
-    ("finance", "business development"),
-    ("finance", "strategy/planning"),
-    ("management", "project management"),
-    ("management", "strategy/planning"),
-    ("management", "consulting"),
-    ("information technology", "engineering"),
-    ("information technology", "manufacturing"),
-    ("information technology", "research"),
-    
-    #----Data and Analytics Family---
-    ("information technology", "analyst"),
-("analyst", "research"),
-("analyst", "strategy/planning"),
-    ("research", "consulting"),
-    
 
-    #----Engineering and Technology Family---
-    ("engineering", "manufacturing"),
-    ("engineering", "design"),
-    ("information technology", "design"),
-    ("design", "advertising"),
-    ("manufacturing", "operations"),
+    # --- FOUNDATIONS ---
+    # These are entry-level skills everything else builds on
+    ("problem solving", "programming"),
+    ("problem solving", "statistics"),
+    ("problem solving", "communication"),
+    ("communication", "leadership"),
+    ("communication", "marketing"),
+    ("communication", "project management"),
 
-    #----Business and Management Family---
-    ("business development", "sales"),
-    ("sales", "marketing"),
-    ("marketing", "advertising"),
-    ("marketing", "strategy/planning"),
-    ("management", "human resources"),
-    ("human resources", "staffing and recruiting"),
-    ("finance", "purchasing"),
-    ("Operations", "management"),
-    ("strategy/planning", "consulting"),
-    
-    #----Marketing and Sales Family---
-    ("sales", "customer service"),
-    ("marketing", "public relations"),
-    ("advertising", "public relations"),
-    ("business development", "marketing"),
-    ("customer service", "retail"),
+    # --- DATA TRACK ---
+    # The natural progression from basics to advanced data skills
+    ("statistics", "data analysis"),
+    ("excel", "data analysis"),
+    ("data analysis", "sql"),
+    ("sql", "databases"),
+    ("databases", "python"),
+    ("python", "data visualization"),
+    ("data analysis", "data visualization"),
+    ("python", "machine learning"),
+    ("statistics", "machine learning"),
+    ("machine learning", "deep learning"),
 
-    #---Health and Operations Family---
-    ("health care provider", "nonprofit organization management"),
-    ("health care provider", "research"),
-    ("operations", "supply chain"),
-    ("manufacturing", "supply chain"),
-    ("finance", "insurance"),
-    ("management", "nonprofit organization management"),
+    # --- ENGINEERING TRACK ---
+    # From programming fundamentals to advanced engineering
+    ("programming", "python"),
+    ("programming", "software engineering"),
+    ("python", "software engineering"),
+    ("software engineering", "databases"),
+    ("databases", "cloud computing"),
+    ("software engineering", "cloud computing"),
 
-    #---Cross Domain Connections---
-    ("research", "nonprofit organization management"),
-    ("design", "marketing"),
-    ("operations", "management"),
-    ("finance", "strategy/planning"),
+    # --- BUSINESS TRACK ---
+    # From foundational tools to management and strategy
+    ("excel", "statistics"),
+    ("data analysis", "project management"),
+    ("project management", "leadership"),
+    ("leadership", "sales"),
+    ("marketing", "sales"),
+
+    # --- CROSS TRACK CONNECTIONS ---
+    ("statistics", "data visualization"),
+    ("sql", "python"),
+    ("data analysis", "machine learning"),
+    ("problem solving", "data analysis"),
+    ("communication", "project management"),
+    ("excel", "data analysis"),
 ]

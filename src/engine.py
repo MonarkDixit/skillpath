@@ -76,19 +76,11 @@ def get_roadmap(
     target_role = target_role.strip().lower()
 
     #Step 1: Get required skills for the target role from dataset
-    # Get all skill mentions for this role (with duplicates)
-    all_skill_mentions = role_skills_map.get(target_role, [])
-
-    # Only keep skills that appear in at least 5% of job postings for this role
-    # This filters out skills that show up in only 1 or 2 listings
     from collections import Counter
+    all_skill_mentions = role_skills_map.get(target_role, [])
     skill_counts = Counter(all_skill_mentions)
-
-    # Use the top 8 most frequently mentioned skills as the required set.
-    # This ensures the roadmap is driven by what employers actually ask for
-    # most often, not every skill that appeared even once in a job posting.
-    top_skills_for_role = [skill for skill, count in skill_counts.most_common(8)]
-    required_skills = set(top_skills_for_role)
+    # Use top 8 most frequent skills as the required set
+    required_skills = {skill for skill, _ in skill_counts.most_common(8)}
 
     if not required_skills:
         return {
