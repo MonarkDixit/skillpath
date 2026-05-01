@@ -76,7 +76,19 @@ def get_roadmap(
     target_role = target_role.strip().lower()
 
     #Step 1: Get required skills for the target role from dataset
-    required_skills = set(role_skills_map.get(target_role, []))
+    # Get all skill mentions for this role (with duplicates)
+    all_skill_mentions = role_skills_map.get(target_role, [])
+
+    # Only keep skills that appear in at least 5% of job postings for this role
+    # This filters out skills that show up in only 1 or 2 listings
+    from collections import Counter
+    skill_counts = Counter(all_skill_mentions)
+
+    # Use the top 8 most frequently mentioned skills as the required set.
+    # This ensures the roadmap is driven by what employers actually ask for
+    # most often, not every skill that appeared even once in a job posting.
+    top_skills_for_role = [skill for skill, count in skill_counts.most_common(8)]
+    required_skills = set(top_skills_for_role)
 
     if not required_skills:
         return {
@@ -105,18 +117,23 @@ def get_roadmap(
     #Step 3: Run BFS to find skills needed and their distances
     bfs_result = bfs_shortest_path(graph, current_skills, known_required)
 
-    #Step 4: Get the full ordered list of skills to acquire
+     # Step 4: Get the full ordered list of skills to acquire
     skills_to_learn = get_skills_needed(graph, current_skills, known_required)
 
-    #Step 5: Run topological sort on the subgraph of missing skills
-    #This gives the correct prerequisite-respecting learning order
+    # Remove any skills the user already has from the list to learn
+    skills_to_learn = [s for s in skills_to_learn if s not in current_skills]
+
+    # Step 5: Run topological sort on the subgraph of missing skills only
     missing_subgraph = graph.get_subgraph_for_skills(
         {s for s in skills_to_learn if s in graph_skills}
     )
     topo_order = topological_sort(missing_subgraph)
 
-    #Build the final roadmap: skills in topo order, excluding already known
+    # Build the final roadmap, strictly excluding anything the user already has
     roadmap = [s for s in topo_order if s not in current_skills]
+
+    # Also remove any required skills the user already has from missing list
+    missing_skills = missing_skills - current_skills
 
     #Add any missing skills not in the graph as standalone items at the end
     for skill in sorted(unknown_required - current_skills):

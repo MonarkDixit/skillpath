@@ -32,10 +32,11 @@ SKILL_EDGES = [
     ("information technology", "research"),
     
     #----Data and Analytics Family---
-    ("information technology", "data analysis"),
-    ("data analysis", "research"),
+    ("information technology", "analyst"),
+("analyst", "research"),
+("analyst", "strategy/planning"),
     ("research", "consulting"),
-    ("data analysis", "strategy/planning"),
+    
 
     #----Engineering and Technology Family---
     ("engineering", "manufacturing"),
