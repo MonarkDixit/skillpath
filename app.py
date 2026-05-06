@@ -5,8 +5,9 @@
 # Course: MSML606, Spring 2026
 #
 # PURPOSE:
-#   Streamlit frontend for SkillPath. Simple, clean, non-technical UI.
-#   Designed so anyone can understand and use it without a CS background.
+#   Streamlit frontend for SkillPath. Two-page layout:
+#     Page 1 (Home): Role selector and skill checklist
+#     Page 2 (Results): Full roadmap with explanations for each section
 #
 # HOW TO RUN:
 #   streamlit run app.py
@@ -86,12 +87,7 @@ html, body, .stApp {
     color: var(--black);
 }
 .wordmark em { color: var(--red); font-style: normal; }
-.tagline {
-    font-size: 1rem;
-    color: var(--g600);
-    margin-top: 0.45rem;
-    font-weight: 400;
-}
+.tagline { font-size: 1rem; color: var(--g600); margin-top: 0.45rem; font-weight: 400; }
 .byline {
     font-family: 'DM Mono', monospace;
     font-size: 0.65rem;
@@ -100,7 +96,7 @@ html, body, .stApp {
     letter-spacing: 0.07em;
 }
 
-/* SECTION LABELS */
+/* LABELS */
 .lbl {
     font-family: 'DM Mono', monospace;
     font-size: 0.65rem;
@@ -116,7 +112,7 @@ html, body, .stApp {
     border: 1.5px solid var(--g200);
     border-radius: var(--r);
     padding: 1.4rem 1.6rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     background: var(--white);
 }
 .card-dark {
@@ -124,34 +120,7 @@ html, body, .stApp {
     border: none;
     border-radius: var(--r);
     padding: 1.4rem 1.6rem;
-    margin-bottom: 1rem;
-}
-.card-red {
-    background: var(--red-lite);
-    border: 1.5px solid #f5c6c6;
-    border-radius: var(--r);
-    padding: 1.2rem 1.5rem;
-    margin-bottom: 1rem;
-}
-
-/* EXAMPLE ROLE BUTTONS */
-.example-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-.ex-btn {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem;
-    padding: 0.35rem 0.85rem;
-    border-radius: 999px;
-    border: 1.5px solid var(--g200);
-    background: var(--white);
-    color: var(--g600);
-    cursor: pointer;
-    transition: all 0.15s;
-    display: inline-block;
+    margin-bottom: 1.2rem;
 }
 
 /* COVERAGE */
@@ -161,11 +130,7 @@ html, body, .stApp {
     color: var(--red);
     line-height: 1;
 }
-.pct-sub {
-    font-size: 0.85rem;
-    color: var(--g600);
-    margin-top: 0.3rem;
-}
+.pct-sub { font-size: 0.85rem; color: var(--g600); margin-top: 0.3rem; }
 .bar-track {
     background: var(--g100);
     border-radius: 999px;
@@ -173,10 +138,18 @@ html, body, .stApp {
     margin: 0.8rem 0 0.3rem;
     overflow: hidden;
 }
-.bar-fill {
-    height: 100%;
-    border-radius: 999px;
-    background: var(--red);
+.bar-fill { height: 100%; border-radius: 999px; background: var(--red); }
+
+/* SECTION EXPLAINER */
+.explainer {
+    font-size: 0.88rem;
+    color: var(--g600);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    padding: 1rem 1.2rem;
+    background: var(--g100);
+    border-radius: var(--r);
+    border-left: 3px solid var(--red);
 }
 
 /* ROADMAP */
@@ -195,17 +168,10 @@ html, body, .stApp {
     color: var(--white);
     font-family: 'DM Mono', monospace;
     font-size: 0.72rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
 }
-.step-name {
-    font-size: 0.92rem;
-    font-weight: 500;
-    color: var(--black);
-    flex: 1;
-}
+.step-name { font-size: 0.92rem; font-weight: 500; color: var(--black); flex: 1; }
 .pill {
     font-family: 'DM Mono', monospace;
     font-size: 0.63rem;
@@ -214,7 +180,6 @@ html, body, .stApp {
     flex-shrink: 0;
 }
 .pill-red { background: var(--red-lite); color: var(--red); border: 1px solid #f5c6c6; }
-.pill-gray { background: var(--g100); color: var(--g400); border: 1px solid var(--g200); }
 
 /* CHIPS */
 .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
@@ -229,7 +194,7 @@ html, body, .stApp {
 }
 
 /* FREQ BARS */
-.fbar { margin-bottom: 0.65rem; }
+.fbar { margin-bottom: 0.7rem; }
 .fbar-top {
     display: flex;
     justify-content: space-between;
@@ -270,8 +235,29 @@ html, body, .stApp {
 /* EMPTY */
 .empty { text-align: center; padding: 4rem 2rem; }
 .empty-i { font-size: 2.2rem; color: var(--g200); margin-bottom: 1rem; }
-.empty-h { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--g400); margin-bottom: 0.4rem; }
+.empty-h {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--g400);
+    margin-bottom: 0.4rem;
+}
 .empty-s { font-size: 0.85rem; color: var(--g400); line-height: 1.6; }
+
+/* RESULTS PAGE HEADER */
+.results-header {
+    border-bottom: 1.5px solid var(--g200);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+.results-role {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+.results-role em { color: var(--red); font-style: normal; }
+.results-sub { font-size: 0.92rem; color: var(--g600); margin-top: 0.4rem; }
 
 /* STREAMLIT OVERRIDES */
 .stSelectbox > div > div,
@@ -291,7 +277,6 @@ html, body, .stApp {
     padding: 0.65rem 1.5rem !important;
     width: 100% !important;
     -webkit-text-fill-color: #fff !important;
-    text-shadow: none !important;
 }
 .stButton > button:hover { background: var(--red) !important; }
 </style>
@@ -312,7 +297,7 @@ def load_data():
 
 
 # =============================================================================
-# RENDER HELPERS
+# HELPERS
 # =============================================================================
 
 def freq_bar(skill: str, count: int, max_count: int) -> str:
@@ -338,24 +323,12 @@ def roadmap_step(rank: int, skill: str) -> str:
     </div>"""
 
 
-def have_step(rank: int, skill: str) -> str:
-    return f"""
-    <div class="step">
-        <div class="step-n" style="background:#e8e8e8;color:#aaa;">{rank}</div>
-        <div class="step-name" style="color:#aaa;text-decoration:line-through;">{skill.title()}</div>
-        <span class="pill pill-gray">already have</span>
-    </div>"""
-
-
 # =============================================================================
-# MAIN
+# PAGE 1: HOME
 # =============================================================================
 
-def main():
-    with st.spinner("Loading..."):
-        role_skills_map, graph, all_roles, all_skills = load_data()
+def render_home(role_skills_map, graph, all_roles, all_skills):
 
-    # --- Header ---
     st.markdown("""
     <div class="header">
         <div class="wordmark">Skill<em>Path</em></div>
@@ -366,28 +339,13 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
-    # Session state
-    if "result" not in st.session_state:
-        st.session_state.result = None
-    if "role_used" not in st.session_state:
-        st.session_state.role_used = None
-
     left, right = st.columns([1, 1.55], gap="large")
 
-    # =========================================================================
-    # LEFT: INPUTS
-    # =========================================================================
     with left:
-
-        # --- What job do you want? ---
         st.markdown('<span class="lbl">Step 1 &nbsp;— What job do you want?</span>',
                     unsafe_allow_html=True)
-
-        # Quick example buttons
         st.markdown("""
-        <div style="font-size:0.8rem;color:#aaa;margin-bottom:0.5rem;">
-            Popular choices:
-        </div>
+        <div style="font-size:0.8rem;color:#aaa;margin-bottom:0.5rem;">Popular choices:</div>
         """, unsafe_allow_html=True)
 
         quick_roles = {
@@ -408,8 +366,8 @@ def main():
         default_idx = 0
         if preset and preset in all_roles:
             default_idx = all_roles.index(preset)
-        elif "sales manager" in all_roles:
-            default_idx = all_roles.index("sales manager")
+        elif "data analyst" in all_roles:
+            default_idx = all_roles.index("data analyst")
 
         selected_role = st.selectbox(
             "Or search all roles",
@@ -419,22 +377,17 @@ def main():
         )
 
         st.markdown("<div style='margin-top:1.5rem;'></div>", unsafe_allow_html=True)
-
-        # --- What skills do you already have? ---
         st.markdown('<span class="lbl">Step 2 &nbsp;— What do you already know?</span>',
                     unsafe_allow_html=True)
-
         st.markdown("""
         <div style="font-size:0.82rem;color:#888;margin-bottom:0.6rem;line-height:1.5;">
-            Select anything that applies. Do not worry if you are not sure,
+            Select any skills you already have. Do not worry if you are unsure,
             you can always come back and change this.
         </div>
         """, unsafe_allow_html=True)
 
-        graph_skills = sorted(graph.get_all_nodes())
         role_req = set(role_skills_map.get(selected_role, []))
-        # Only show skills that are actually required by this role
-        # plus skills in the graph that overlap with role requirements
+        graph_skills = sorted(graph.get_all_nodes())
         checklist_skills = sorted(role_req)
 
         selected_skills = st.multiselect(
@@ -442,14 +395,13 @@ def main():
             options=checklist_skills,
             default=[],
             label_visibility="collapsed",
-            placeholder="Type to search, e.g. sales, finance, marketing...",
+            placeholder="Type to search, e.g. python, sql, excel...",
         )
 
         st.markdown("<div style='margin-top:1.2rem;'></div>", unsafe_allow_html=True)
-        st.button("Show Me My Roadmap", use_container_width=True, key="go_btn")
 
-        if st.session_state.get("go_btn"):
-            with st.spinner("Calculating your roadmap..."):
+        if st.button("Show Me My Roadmap", use_container_width=True, key="go_btn"):
+            with st.spinner("Building your roadmap..."):
                 result = get_roadmap(
                     current_skills=selected_skills,
                     target_role=selected_role,
@@ -458,19 +410,19 @@ def main():
                 )
                 st.session_state.result = result
                 st.session_state.role_used = selected_role
+                st.session_state.skills_used = selected_skills
+                st.session_state.page = "results"
+                st.rerun()
 
-        # --- What is SkillPath? ---
         st.markdown("<div style='margin-top:2.5rem;'></div>", unsafe_allow_html=True)
         st.markdown('<span class="lbl">What is SkillPath?</span>', unsafe_allow_html=True)
-
         st.markdown("""
         <div style="font-size:0.85rem;color:#666;line-height:1.7;margin-bottom:1.2rem;">
             Job postings list dozens of required skills but never tell you
             which ones to learn first. SkillPath figures that out for you.
             <br><br>
-            It looks at over <strong>70,000 real LinkedIn job listings</strong>
-            to understand what each role actually needs, then builds a
-            step-by-step learning plan based on what you already know.
+            It maps out which skills depend on which others, then builds
+            a step-by-step learning plan based on what you already know.
         </div>
         """, unsafe_allow_html=True)
 
@@ -487,160 +439,246 @@ def main():
             </div>
             """, unsafe_allow_html=True)
 
-    # =========================================================================
-    # RIGHT: RESULTS
-    # =========================================================================
     with right:
-        result = st.session_state.result
+        st.markdown("""
+        <div class="empty">
+            <div class="empty-i">◈</div>
+            <div class="empty-h">Your roadmap will appear on the next page</div>
+            <div class="empty-s">
+                Pick a role on the left, add the skills you already have,
+                and click <strong>Show Me My Roadmap</strong>.
+                <br><br>
+                <span style="color:#ccc;">
+                    Try: Pick "Data Analyst" with no skills to see a full
+                    learning plan from scratch.
+                </span>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
-        if result is None:
-            st.markdown("""
-            <div class="empty">
-                <div class="empty-i">◈</div>
-                <div class="empty-h">Your personalized roadmap will appear here</div>
-                <div class="empty-s">
-                    Pick a job on the left, add the skills you already have,
-                    and click <strong>Show Me My Roadmap</strong>.
-                    <br><br>
-                    <span style="color:#ccc;">
-                        Example: Pick "Sales Manager" with no skills selected
-                        to see a full learning plan from scratch.
-                    </span>
-                </div>
+
+# =============================================================================
+# PAGE 2: RESULTS
+# =============================================================================
+
+def render_results(role_skills_map, graph):
+    result = st.session_state.get("result")
+    role_used = st.session_state.get("role_used", "")
+    skills_used = st.session_state.get("skills_used", [])
+
+    if not result:
+        st.session_state.page = "home"
+        st.rerun()
+        return
+
+    role_display = role_used.title()
+    skills_str = (
+        ", ".join(s.title() for s in skills_used)
+        if skills_used else "no prior skills"
+    )
+
+    # Back button at the top
+    if st.button("← Back to Home", key="back_btn"):
+        st.session_state.page = "home"
+        st.rerun()
+
+    st.markdown("<div style='margin-top:1.5rem;'></div>", unsafe_allow_html=True)
+
+    # Results page header
+    st.markdown(f"""
+    <div class="results-header">
+        <div class="results-role">Your roadmap to become a <em>{role_display}</em></div>
+        <div class="results-sub">
+            Starting with: {skills_str}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Qualified banner
+    if result["is_qualified"]:
+        st.markdown(f"""
+        <div class="card-dark">
+            <div style="font-size:1.5rem;margin-bottom:0.5rem;">✓</div>
+            <div style="font-family:'DM Serif Display',serif;font-size:1.15rem;
+                        color:#fff;margin-bottom:0.3rem;">
+                You already qualify for {role_display}
+            </div>
+            <div style="font-size:0.83rem;color:#777;">
+                You have all {len(result['required_skills'])} skills this role needs.
+                You are ready to apply.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    col1, col2 = st.columns([1.1, 1], gap="large")
+
+    with col1:
+
+        # --- SECTION 1: Coverage ---
+        st.markdown("""
+        <div class="explainer">
+            <strong>Your skill coverage</strong> shows how much of this role you already
+            cover with your current skills. The higher the percentage, the closer you
+            are to being ready. A coverage of 100% means you meet every requirement
+            employers look for in this role.
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown(f"""
+        <div class="card">
+            <span class="lbl">How close are you to {role_display}?</span>
+            <div class="big-pct">{result['coverage_pct']}%</div>
+            <div class="pct-sub">
+                You have {len(result['already_have'])} out of
+                {len(result['required_skills'])} skills this role requires.
+            </div>
+            <div class="bar-track">
+                <div class="bar-fill" style="width:{result['coverage_pct']}%"></div>
+            </div>
+            <div style="font-size:0.78rem;color:#aaa;margin-top:0.3rem;">
+                {"You are fully qualified!" if result['is_qualified']
+                 else f"{len(result['missing_skills'])} skill(s) left to close the gap."}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Skills already have
+        if result["already_have"]:
+            chips_html = "".join(
+                f'<span class="chip">{s.title()}</span>'
+                for s in result["already_have"]
+            )
+            st.markdown(f"""
+            <div style="margin-bottom:1.4rem;">
+                <span class="lbl">Skills you already have ✓</span>
+                <div class="chips">{chips_html}</div>
             </div>
             """, unsafe_allow_html=True)
 
-        elif result.get("error"):
-            st.error(result["error"])
+        # --- SECTION 2: Roadmap ---
+        st.markdown("""
+        <div class="explainer" style="margin-top:1rem;">
+            <strong>Your learning roadmap</strong> is a numbered list of skills to learn,
+            ordered so that each skill builds naturally on the one before it. You should
+            not skip steps because later skills assume you already understand the earlier ones.
+            Think of it like a staircase: each step gets you one level closer to your goal.
+        </div>
+        """, unsafe_allow_html=True)
 
-        else:
-            role_display = result["role"].title()
-
-            # --- Qualified check ---
-            if result["is_qualified"]:
-                st.markdown(f"""
-                <div class="card-dark">
-                    <div style="font-size:1.5rem;margin-bottom:0.5rem;">✓</div>
-                    <div style="font-family:'DM Serif Display',serif;font-size:1.15rem;
-                                color:#fff;margin-bottom:0.3rem;">
-                        You already qualify for {role_display}
-                    </div>
-                    <div style="font-size:0.83rem;color:#777;">
-                        You have all {len(result['required_skills'])} skills this role needs.
-                        You are good to apply.
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-
-            # --- Coverage ---
+        if result["roadmap"]:
+            steps_html = "".join(
+                roadmap_step(i, skill)
+                for i, skill in enumerate(result["roadmap"], 1)
+            )
             st.markdown(f"""
             <div class="card">
-                <span class="lbl">How close are you to {role_display}?</span>
-                <div class="big-pct">{result['coverage_pct']}%</div>
-                <div class="pct-sub">
-                    You have {len(result['already_have'])} out of
-                    {len(result['required_skills'])} skills this role requires.
+                <span class="lbl">
+                    Learn these {len(result['roadmap'])} skill(s) in this order
+                </span>
+                {steps_html}
+            </div>
+            """, unsafe_allow_html=True)
+        elif result["is_qualified"]:
+            st.markdown("""
+            <div class="card" style="text-align:center;padding:2rem;">
+                <div style="font-family:'DM Serif Display',serif;font-size:1rem;
+                            color:#0d0d0d;margin-bottom:0.3rem;">
+                    Nothing left to learn for this role.
                 </div>
-                <div class="bar-track">
-                    <div class="bar-fill" style="width:{result['coverage_pct']}%"></div>
-                </div>
-                <div style="font-size:0.78rem;color:#aaa;margin-top:0.3rem;">
-                    {"You are there!" if result['is_qualified']
-                     else f"{len(result['missing_skills'])} skill(s) left to close the gap."}
+                <div style="font-size:0.83rem;color:#888;">
+                    Every skill this role requires is already on your profile.
                 </div>
             </div>
             """, unsafe_allow_html=True)
 
-            # --- Skills you already have ---
-            if result["already_have"]:
-                chips_html = "".join(
-                    f'<span class="chip">{s.title()}</span>'
-                    for s in result["already_have"]
-                )
-                st.markdown(f"""
-                <div style="margin-bottom:1.4rem;">
-                    <span class="lbl">Skills you already have &#10003;</span>
-                    <div class="chips">{chips_html}</div>
-                </div>
-                """, unsafe_allow_html=True)
+    with col2:
 
-            # --- Roadmap ---
-            if result["roadmap"]:
-                steps_html = "".join(
-                    roadmap_step(i, skill)
-                    for i, skill in enumerate(result["roadmap"], 1)
-                )
-                st.markdown(f"""
-                <div class="card">
-                    <span class="lbl">
-                        Your learning roadmap &mdash; learn these {len(result['roadmap'])}
-                        skill(s) in this order
-                    </span>
-                    <div style="font-size:0.82rem;color:#888;margin-bottom:1rem;line-height:1.5;">
-                        Start from step 1. Each skill builds on the one before it.
-                        Working through this list in order is the fastest path to {role_display}.
-                    </div>
-                    {steps_html}
-                </div>
-                """, unsafe_allow_html=True)
+        # --- SECTION 3: Most in-demand skills ---
+        st.markdown("""
+        <div class="explainer">
+            <strong>Most in-demand skills</strong> shows which skills appear most
+            frequently across real job listings for this role. The longer the bar,
+            the more employers ask for that skill. Use this to prioritize which
+            skills will make your profile stand out the most.
+        </div>
+        """, unsafe_allow_html=True)
 
-            elif result["is_qualified"]:
-                st.markdown("""
-                <div class="card" style="text-align:center;padding:2rem;">
-                    <div style="font-family:'DM Serif Display',serif;font-size:1rem;
-                                color:#0d0d0d;margin-bottom:0.3rem;">
-                        Nothing left to learn for this role.
-                    </div>
-                    <div style="font-size:0.83rem;color:#888;">
-                        Every skill this role requires is already on your profile.
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-
-            # --- Most in-demand skills ---
-            if result["top_skills"]:
-                st.markdown("<div style='margin-top:0.5rem;'></div>", unsafe_allow_html=True)
-                max_c = result["top_skills"][0][1]
-                bars_html = "".join(
-                    freq_bar(s.title(), c, max_c)
-                    for s, c in result["top_skills"]
-                )
-                st.markdown(f"""
-                <div class="card">
-                    <span class="lbl">
-                        Skills that appear most in {role_display} job listings
-                    </span>
-                    <div style="font-size:0.82rem;color:#888;margin-bottom:1rem;line-height:1.5;">
-                        These are the skills employers mention most often when
-                        hiring for this role. The longer the bar, the more
-                        job listings ask for it.
-                    </div>
-                    {bars_html}
-                </div>
-                """, unsafe_allow_html=True)
-
-            # --- How SkillPath figured this out ---
+        if result["top_skills"]:
+            max_c = result["top_skills"][0][1]
+            bars_html = "".join(
+                freq_bar(s.title(), c, max_c)
+                for s, c in result["top_skills"]
+            )
             st.markdown(f"""
-            <div style="margin-top:0.5rem;">
-                <span class="lbl">How SkillPath figured this out</span>
-                <div class="srow">
-                    <span class="sk">Job listings analysed</span>
-                    <span class="sv">{len(role_skills_map):,}</span>
-                </div>
-                <div class="srow">
-                    <span class="sk">Skills in the dependency map</span>
-                    <span class="sv">{graph.get_stats()['node_count']}</span>
-                </div>
-                <div class="srow">
-                    <span class="sk">Skill relationships mapped</span>
-                    <span class="sv">{graph.get_stats()['edge_count']}</span>
-                </div>
-                <div class="srow">
-                    <span class="sk">Method used</span>
-                    <span class="sv">Graph traversal + ordering</span>
-                </div>
+            <div class="card">
+                <span class="lbl">
+                    Skills that appear most in {role_display} job listings
+                </span>
+                {bars_html}
             </div>
             """, unsafe_allow_html=True)
+
+        # --- How SkillPath figured this out ---
+        st.markdown("""
+        <div class="explainer" style="margin-top:1rem;">
+            <strong>How SkillPath works</strong> under the hood: it models all skills
+            as a network where some skills are prerequisites for others. It then uses
+            two graph algorithms to build your roadmap. First, it finds the shortest
+            path from your current skills to the ones you need. Then it sorts them
+            into the right learning order so no skill appears before its prerequisites.
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown(f"""
+        <div class="card">
+            <span class="lbl">How SkillPath figured this out</span>
+            <div class="srow">
+                <span class="sk">Roles in database</span>
+                <span class="sv">{len(role_skills_map):,}</span>
+            </div>
+            <div class="srow">
+                <span class="sk">Skills in the dependency map</span>
+                <span class="sv">{graph.get_stats()['node_count']}</span>
+            </div>
+            <div class="srow">
+                <span class="sk">Skill relationships mapped</span>
+                <span class="sv">{graph.get_stats()['edge_count']}</span>
+            </div>
+            <div class="srow">
+                <span class="sk">Step 1: Find missing skills</span>
+                <span class="sv">BFS shortest path</span>
+            </div>
+            <div class="srow">
+                <span class="sk">Step 2: Order them correctly</span>
+                <span class="sv">Topological sort</span>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Back button at the bottom too
+        st.markdown("<div style='margin-top:1rem;'></div>", unsafe_allow_html=True)
+        if st.button("← Try a different role", key="back_btn_2"):
+            st.session_state.page = "home"
+            st.rerun()
+
+
+# =============================================================================
+# MAIN ROUTER
+# =============================================================================
+
+def main():
+    with st.spinner("Loading..."):
+        role_skills_map, graph, all_roles, all_skills = load_data()
+
+    if "page" not in st.session_state:
+        st.session_state.page = "home"
+    if "result" not in st.session_state:
+        st.session_state.result = None
+
+    if st.session_state.page == "home":
+        render_home(role_skills_map, graph, all_roles, all_skills)
+    elif st.session_state.page == "results":
+        render_results(role_skills_map, graph)
 
 
 # =============================================================================
