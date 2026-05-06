@@ -1,7 +1,9 @@
 # SkillPath: Career Skill Dependency Mapper
 
 **Course:** MSML606 - Data Structures and Algorithms, Spring 2026
+
 **Author:** Monark Dixit (UID: 122259645)
+
 **Submission:** Extra Credit Project 2 - Individual
 
 ---
